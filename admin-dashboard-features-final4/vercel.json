@@ -1,8 +1,31 @@
 {
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/"
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*?\\..+?)(?<!/|\\.\w+$)",
+      "dest": "/$1"
+    },
+    {
+      "src": "/_next/static/(.*)",
+      "dest": "/_next/static/$1"
+    },
+    {
+      "src": "/_next/image(.*)",
+      "dest": "/_next/image$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/"
     }
   ],
   "output": "standalone",
@@ -12,10 +35,6 @@
     {
       "source": "/(.*)",
       "headers": [
-        {
-          "key": "x-matched-path",
-          "value": "/"
-        },
         {
           "key": "Cache-Control",
           "value": "public, max-age=0, must-revalidate"
