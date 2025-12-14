@@ -8,27 +8,37 @@
   ],
   "routes": [
     {
-      "src": "/_next/static/(.*)",
+      "src": "^/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "^/_next/static/(.*)",
       "dest": "/_next/static/$1"
     },
     {
-      "src": "/_next/image(.*)",
+      "src": "^/_next/image(.*)",
       "dest": "/_next/image$1"
     },
     {
-      "src": "/(.*?\\..+?)(?<!/|\\.\\w+$)",
-      "dest": "/$1"
-    },
-    {
-      "src": "/api/(.*)",
+      "src": "^/api/(.*)",
       "dest": "/api/$1"
     },
     {
-      "src": "/(.*)",
+      "src": "^/(.*\\.(?:ico|json|png|jpg|jpeg|gif|svg|css|js|woff|woff2|ttf))$",
+      "dest": "/$1"
+    },
+    {
+      "src": "^/(.*)$",
       "dest": "/"
     }
   ],
   "output": "standalone",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "regions": ["iad1"],
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "installCommand": "npm install",
+  "devCommand": "next dev",
+  "outputDirectory": ".next"
 }
