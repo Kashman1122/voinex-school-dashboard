@@ -18,24 +18,32 @@ export async function POST(request: NextRequest) {
       school,
     })
 
+    console.log("[Register] Teacher registered:", teacher)
 
-    console.log(teacher)
+    // Prepare safe teacher response (without password)
+    const teacherResponse = {
+      _id: teacher._id,
+      teacherName: teacher.teacherName,
+      teacherEmail: teacher.teacherEmail,
+      teacherCode: teacher.teacherCode,
+      school: teacher.school,
+    }
 
-    
     // Create JWT token
     const token = jwt.sign(
       {
         id: teacher._id,
         email: teacher.teacherEmail,
+        teacherCode: teacher.teacherCode,
         school: teacher.school,
       },
       process.env.JWT_SECRET || "your-secret-key",
       { expiresIn: "7d" },
     )
 
-    return NextResponse.json({ token, teacher }, { status: 201 })
+    return NextResponse.json({ token, teacher: teacherResponse }, { status: 201 })
   } catch (error: any) {
-    console.error("[v0] Registration error:", error)
+    console.error("[Register] Registration error:", error)
     return NextResponse.json({ error: error.message || "Registration failed" }, { status: 400 })
   }
 }

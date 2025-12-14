@@ -12,6 +12,7 @@ export async function POST(request: NextRequest) {
 
     const teacher = await loginTeacher(email, password)
 
+    // Prepare safe teacher response (without password)
     const teacherResponse = {
       _id: teacher._id,
       teacherName: teacher.teacherName,
@@ -34,7 +35,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ token, teacher: teacherResponse }, { status: 200 })
   } catch (error: any) {
-    console.error("[v0] Login error:", error)
+    console.error("[Login] Login error:", error)
     return NextResponse.json({ error: error.message || "Login failed" }, { status: 401 })
   }
 }
