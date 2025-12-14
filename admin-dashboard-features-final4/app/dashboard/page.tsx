@@ -49,7 +49,7 @@ export default function DashboardPage() {
         if (!finalTeacherCode) {
           console.error("[Dashboard] Teacher code missing")
           setError("Teacher code not found. Please login again.")
-          setTimeout(() => router.push("/auth/login"), 1500)
+          setTimeout(() => router.push("/login"), 1500)
           return
         }
 
